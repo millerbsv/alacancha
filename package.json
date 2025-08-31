@@ -1,0 +1,15 @@
+{
+  "name": "alacancha",
+  "version": "1.0.0",
+  "description": "App para convocar jugadores en partidos amistosos en tu ciudad",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
