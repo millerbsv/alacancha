@@ -54,3 +54,19 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA cupos TO servicio_c
 GRANT USAGE ON SCHEMA notificaciones TO servicio_notificaciones;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA notificaciones TO servicio_notificaciones;
 
+
+## distribución de puertos
+
+auth	PORT=3001
+calificacion	PORT=3002
+cupos	PORT=3003
+notificaciones	PORT=3004
+
+
+## publicar imagen docker
+docker build -t auth-service:1.0.0 .
+
+## subir imagen ACR
+az acr login --name <acrName>
+docker tag auth-service:1.0.0 <acrName>.azurecr.io/auth-service:1.0.0
+docker push <acrName>.azurecr.io/auth-service:1.0.0
