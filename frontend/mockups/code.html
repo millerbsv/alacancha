@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>¡A la Cancha! - Búsqueda</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+    :root {
+      --primary-color: #007bff;
+    }
+    body {
+      font-family: 'Lexend', 'Noto Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-900">
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<header class="absolute top-0 z-20 flex w-full items-center justify-between whitespace-nowrap bg-gray-900/80 px-6 py-4 shadow-md backdrop-blur-sm sm:px-10">
+<a class="flex items-center gap-3 text-white" href="#">
+<svg class="h-8 w-8 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.59L7.71 13.3a.996.996 0 1 1 1.41-1.41L11 13.17V7a1 1 0 0 1 2 0v6.17l1.88-1.88a.996.996 0 1 1 1.41 1.41L13 16.59V16.59z"></path>
+</svg>
+<h1 class="text-white text-2xl font-bold leading-tight tracking-[-0.015em]">¡A la Cancha!</h1>
+</a>
+<div class="flex items-center gap-4">
+<button class="flex min-w-[40px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-transparent text-gray-300 hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined"> notifications </span>
+</button>
+<button class="flex min-w-[40px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-transparent">
+<img alt="Avatar de usuario" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/a/ACg8ocK_gSj3YwJ5RrfnS_YjIDuW3B2dYpZXsszVBG8qW-A=s96-c"/>
+</button>
+</div>
+</header>
+<div class="flex flex-1 pt-24">
+<aside class="w-full max-w-sm shrink-0 p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
+<div class="rounded-xl bg-gray-900/80 p-6 shadow-2xl backdrop-blur-lg border border-gray-700">
+<h2 class="text-2xl font-bold text-white tracking-tight">Busca tu próximo partido</h2>
+<p class="mt-1 text-base text-gray-400">Filtra por deporte y encuentra canchas disponibles.</p>
+<form class="mt-6 space-y-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"> sports_soccer </span>
+<select class="form-select w-full rounded-lg border border-gray-600 bg-gray-800 py-3 pl-12 pr-10 text-base text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50">
+<option selected="">Fútbol</option>
+<option>Baloncesto</option>
+<option>Béisbol</option>
+</select>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"> calendar_today </span>
+<input class="form-input w-full rounded-lg border border-gray-600 bg-gray-800 py-3 pl-12 pr-4 text-base text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50" placeholder="Hoy" type="text"/>
+</div>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"> schedule </span>
+<input class="form-input w-full rounded-lg border border-gray-600 bg-gray-800 py-3 pl-12 pr-4 text-base text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50" placeholder="Ahora" type="text"/>
+</div>
+</div>
+<button class="flex w-full cursor-pointer items-center justify-center rounded-lg h-12 px-4 bg-[var(--primary-color)] text-white text-base font-bold leading-normal tracking-wide shadow-lg shadow-[var(--primary-color)]/20 transition-all hover:bg-opacity-90 hover:shadow-xl hover:shadow-[var(--primary-color)]/30" type="submit">
+<span class="material-symbols-outlined mr-2"> search </span>
+<span class="truncate">Buscar</span>
+</button>
+</form>
+</div>
+<nav class="rounded-xl bg-gray-900/80 p-4 shadow-2xl backdrop-blur-lg border border-gray-700">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center gap-3 rounded-lg px-4 py-3 text-white bg-gray-700/50" href="#">
+<span class="material-symbols-outlined"> search </span>
+<span class="font-medium">Buscar Evento</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-400 hover:bg-gray-700/50 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined"> add_circle </span>
+<span class="font-medium">Crear Evento</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-400 hover:bg-gray-700/50 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined"> event </span>
+<span class="font-medium">Mis Eventos</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 rounded-lg px-4 py-3 text-gray-400 hover:bg-gray-700/50 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined"> person </span>
+<span class="font-medium">Mi Perfil</span>
+</a>
+</li>
+</ul>
+</nav>
+</aside>
+<main class="relative flex-1">
+<div class="absolute inset-0 z-0 h-full w-full">
+<img alt="Mapa de una ciudad con marcadores de ubicación en modo noche" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ4F74w98f80uC2mK44WqD_00U4wQy7K0o4Z6f1t8s0uJ7f0l8Z9q8q0k8l8j8f0w0o0c4e4d4g4i4j4k4l4m4n4o4p4q4r4s4t4u4v4w4x4y4z5051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100"/>
+</div>
+</main>
+</div>
+</div>
+
+</body></html>
