@@ -12,6 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --primary-color: #007bff; /* o el color que quieras */
+  --primary-backgroun-color: #111827;
 }
 
 a {

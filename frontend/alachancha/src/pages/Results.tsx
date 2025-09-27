@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { APIProvider, Map, Marker, useMap  } from '@vis.gl/react-google-maps';
+import Reserve from './Reserve';
 
 function FitBounds({ markers }: { markers: { position: google.maps.LatLngLiteral }[] }) {
   const map = useMap(); // obtiene el objeto google.maps.Map
@@ -68,24 +69,7 @@ export default function Results() {
       {/* Modal */}
       {selectedMarker && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-lg shadow-lg w-11/12 max-w-md p-6">
-            <h3 className="text-xl font-bold mb-4">{selectedMarker.title}</h3>
-            <p className="text-gray-700 mb-4">{selectedMarker.reserva}</p>
-            <div className="flex justify-end gap-4">
-              <button
-                onClick={() => setSelectedMarker(null)}
-                className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
-              >
-                Cerrar
-              </button>
-              <button
-                onClick={() => alert(`Reserva confirmada para ${selectedMarker.title}`)}
-                className="px-4 py-2 rounded bg-[var(--primary-color)] text-white hover:bg-opacity-90"
-              >
-                Confirmar
-              </button>
-            </div>
-          </div>
+          <Reserve/>
         </div>
       )}
 
