@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import routes from './routes/routes.js';
+import authRoutes from './routes/routes.js';
 import './config/db.js'; // inicializa la conexión a la BD
 
 dotenv.config(); // lee .env

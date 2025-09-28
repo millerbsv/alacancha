@@ -77,7 +77,7 @@ export async function crearCupo(req, res) {
       creador_id,
       deporte: deporte.trim(),
       valor: valor ? parseFloat(valor) : null,
-      duracion,
+      duracion : duracion ? parseInt(duracion) + "minutes" : null,
       lugar: lugar.trim(),
       fecha,
       hora,
@@ -100,3 +100,94 @@ export async function crearCupo(req, res) {
     });
   }
 }
+
+
+export async function obtenerCupo(req, res) {
+    try {
+      const id = req.body.id || null;
+
+      if (!id || isNaN(id)) {
+        return res.status(400).json({
+          error: 'ID de cupo inválido'
+        });
+      }
+
+      const cupo = await Spot.obtenerCupoPorId(parseInt(id));
+      console.log(cupo);
+      if (!cupo) {
+        return res.status(404).json({
+          error: 'Cupo no encontrado'
+        });
+      }
+
+      // Obtener participaciones
+      const participaciones = await Spot.obtenerParticipacionesCupo(parseInt(id));
+
+      res.json({
+        success: true,
+        cupo: {
+          ...cupo,
+          participantes: participaciones,
+          total_participantes: participaciones.length
+        }
+      });
+
+    } catch (error) {
+      console.error('Error al obtener cupo:', error);
+      res.status(500).json({
+        error: 'Error interno del servidor',
+        detalle: error.message
+      });
+    }
+  }
+
+export async function buscarCupos(req, res) {
+    try {
+      const {
+        deporte,
+        valor_min,
+        valor_max,
+        fecha_desde,
+        fecha_hasta,
+        lat,
+        lon,
+        radio = 10,
+        limite = 50,
+        offset = 0
+      } = req.body;
+
+      const filtros = {};
+
+      if (deporte) filtros.deporte = deporte;
+      if (valor_min) filtros.valor_min = parseFloat(valor_min);
+      if (valor_max) filtros.valor_max = parseFloat(valor_max);
+      if (fecha_desde) filtros.fecha_desde = fecha_desde;
+      if (fecha_hasta) filtros.fecha_hasta = fecha_hasta;
+      
+      if (lat && lon) {
+        filtros.lat = parseFloat(lat);
+        filtros.lon = parseFloat(lon);
+        filtros.radio_km = parseFloat(radio);
+      }
+
+      const cupos = await Spot.buscarCupos(
+        filtros, 
+        parseInt(limite), 
+        parseInt(offset)
+      );
+
+      res.json({
+        success: true,
+        cupos,
+        total: cupos.length,
+        filtros
+      });
+
+    } catch (error) {
+      console.error('Error al buscar cupos:', error);
+      res.status(500).json({
+        error: 'Error interno del servidor',
+        detalle: error.message
+      });
+    }
+  }
