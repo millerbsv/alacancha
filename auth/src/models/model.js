@@ -58,6 +58,23 @@ async crearPerfil(datos) {
     }
   },
 
+  async obtenerUsuarioPorId(id) {
+    try {
+      const query = `
+        SELECT id, nombre, correo, fecha_registro, foto_perfil,
+               deportes_preferidos, horario_disponible, lat, lon, transporte
+        FROM auth.usuarios 
+        WHERE id = $1
+      `;
+      
+      const result = await pool.query(query, [id]);
+      return result.rows[0] || null;
+
+    } catch (error) {
+      throw error;
+    }
+  },
+
 };
 
 export default User;

@@ -191,3 +191,72 @@ export async function buscarCupos(req, res) {
       });
     }
   }
+
+export async function participarEnCupo(req, res) {
+    try {
+      const { cupoId,
+              usuarioId
+       } = req.body;
+//validar que cupo exista
+
+//registrar participacion
+      const rol = 'jugador';
+
+      if (!cupoId || isNaN(cupoId)) {
+        return res.status(400).json({
+          error: 'ID de cupo inválido'
+        });
+      }
+
+      
+      
+      const participacion = await Spot.participarEnCupo(
+        parseInt(cupoId), 
+        usuarioId, 
+        rol
+      );
+      console.log(participacion);
+      
+      if (participacion.rows.length === 0) {
+        throw new Error('Cupo no encontrado');
+      }
+
+      const cupo = participacion.rows[0];
+//revisar estado
+      if (cupo.estado !== 'pendiente') {
+        throw new Error('No se puede participar en este cupo');
+      }
+
+      if (cupo.creador_id === usuarioId) {
+        throw new Error('No puedes participar en tu propio cupo');
+      }
+
+      const actualiza = Spot.actualizarEstadoCupo(parseInt(cupoId));
+
+      const crear = Spot.crearParticipacion(cupoId, usuarioId, rol);
+
+      res.status(201).json({
+        success: true,
+        mensaje: 'Te has unido al cupo exitosamente',
+        estado: "OK"
+      });
+
+    } catch (error) {
+      console.error('Error al participar en cupo:', error);
+      
+      if (error.message.includes('no encontrado') ||
+          error.message.includes('No se puede participar') ||
+          error.message.includes('No puedes participar') ||
+          error.message.includes('Ya estás participando') ||
+          error.message.includes('No hay cupos disponibles')) {
+        return res.status(400).json({
+          error: error.message
+        });
+      }
+
+      res.status(500).json({
+        error: 'Error interno del servidor',
+        detalle: error.message
+      });
+    }
+  }

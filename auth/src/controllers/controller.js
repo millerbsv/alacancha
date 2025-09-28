@@ -81,3 +81,27 @@ export async function crearPerfil(req, res) {
     });
   }
 }
+
+export async function obtenerPerfil(req, res) {
+    try {
+      const usuarioId = req.body.id;
+      const usuario = await User.obtenerUsuarioPorId(usuarioId);
+
+      if (!usuario) {
+        return res.status(404).json({ error: 'Usuario no encontrado' });
+      }
+
+      res.json({
+        success: true,
+        usuario
+      });
+
+    } catch (error) {
+      console.error('Error al obtener perfil:', error);
+      res.status(500).json({
+        error: 'Error interno del servidor',
+        detalle: error.message
+      });
+    }
+  }
+

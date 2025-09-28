@@ -220,6 +220,102 @@ async obtenerParticipacionesCupo(cupoId) {
   },
 
 
+
+  async participarEnCupo(cupoId, usuarioId, rol = 'jugador') {
+    const client = await pool.connect();
+    try {
+      // Verificar que el cupo existe y está activo/pendiente
+      const cupoQuery = 'SELECT creador_id, estado, roles FROM spot.cupos WHERE id = $1';
+      const cupoResult = await client.query(cupoQuery, [cupoId]);
+
+
+      return cupoResult;
+
+    } catch (error) {
+      throw error;
+    } finally {
+      client.release();
+    }
+  },
+/*      if (cupoResult.rows.length === 0) {
+        throw new Error('Cupo no encontrado');
+      }
+
+      const cupo = cupoResult.rows[0];
+//revisar estado
+      if (cupo.estado !== 'pendiente') {
+        throw new Error('No se puede participar en este cupo');
+      }
+
+      if (cupo.creador_id === usuarioId) {
+        throw new Error('No puedes participar en tu propio cupo');
+      }
+*/
+      // Verificar si ya está participando
+      //const yaParticipaQuery = 'SELECT id FROM spot.participaciones WHERE cupo_id = $1 AND usuario_id = $2';
+      //const yaParticipaResult = await client.query(yaParticipaQuery, [cupoId, usuarioId]);
+
+      //if (yaParticipaResult.rows.length > 0) {
+      //  throw new Error('Ya estás participando en este cupo');
+      //}
+
+      // Verificar disponibilidad de roles si se especifica
+      /*if (cupo.roles && rol !== 'jugador') {
+        const rolesDisponibles = JSON.parse(cupo.roles);
+        
+        if (rolesDisponibles[rol] !== undefined) {
+          // Contar participaciones actuales en este rol
+          const countRolQuery = 'SELECT COUNT(*) as count FROM spot.participaciones WHERE cupo_id = $1 AND rol = $2';
+          const countResult = await client.query(countRolQuery, [cupoId, rol]);
+          const participantesEnRol = parseInt(countResult.rows[0].count);
+          
+          if (participantesEnRol >= rolesDisponibles[rol]) {
+            throw new Error(`No hay cupos disponibles para el rol: ${rol}`);
+          }
+        }
+      }*/
+
+      // Insertar participación
+
+  async actualizarEstadoCupo(cupoId) { 
+    const client = await pool.connect();
+    try {
+      const updateQuery = `
+        UPDATE spot.cupos SET estado = 'activo' WHERE id = $1 
+        RETURNING *
+      `;
+
+
+      const result = await client.query(updateQuery, [cupoId]);
+      return result.rows[0];
+    } catch (error) {
+      throw error;
+    } finally {
+      client.release();
+    }
+  },
+
+  async crearParticipacion(cupoId, usuarioId, rol) { 
+    const client = await pool.connect();
+    try {
+      const updateQuery = `
+      INSERT INTO spot.participaciones (cupo_id, usuario_id, rol)
+        VALUES ($1, $2, $3)
+        RETURNING *
+      `;
+
+
+      const result = await client.query(updateQuery, [cupoId,usuarioId, rol]);
+      return result.rows[0];
+    } catch (error) {
+      throw error;
+    } finally {
+      client.release();
+    }
+  },
+
+
+
 };
 
 
