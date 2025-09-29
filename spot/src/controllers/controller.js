@@ -143,7 +143,18 @@ export async function obtenerCupo(req, res) {
 
 export async function buscarCupos(req, res) {
     try {
-      const {
+      const deporte = req.query.deporte || null;
+      const valor_min = req.query.valor_min || null;
+      const valor_max = req.query.valor_max || null;
+      const fecha_desde = req.query.fecha_desde || null;
+      const fecha_hasta = req.query.fecha_hasta || null;
+      const lat = req.query.lat || null;
+      const lon = req.query.lon || null;
+      const radio = req.query.radio || 10;
+      const limite = req.query.limite || 50;
+      const offset = req.query.offset || 0;
+
+      /*const {
         deporte,
         valor_min,
         valor_max,
@@ -155,7 +166,7 @@ export async function buscarCupos(req, res) {
         limite = 50,
         offset = 0
       } = req.body;
-
+      */
       const filtros = {};
 
       if (deporte) filtros.deporte = deporte;

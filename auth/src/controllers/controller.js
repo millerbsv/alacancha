@@ -83,15 +83,25 @@ export async function crearPerfil(req, res) {
 }
 
 export async function obtenerPerfil(req, res) {
-  console.log('ingreso a obterner perdil:');
-    try {
-      const usuarioId = req.body.id;
-      const usuario = await User.obtenerUsuarioPorId(usuarioId);
+try {
+    const usuarioId = req.query.usuarioId;  // 
 
-      if (!usuario) {
-        return res.status(404).json({ error: 'Usuario no encontrado' });
-      }
+    console.log('Usuario ID recibido:', usuarioId);
+    
+    // Validar que el ID sea válido
+    if (!usuarioId || isNaN(parseInt(usuarioId))) {
+      return res.status(400).json({ 
+        error: 'ID de usuario inválido' 
+      });
+    }
+    const usuario = await User.obtenerUsuarioPorId(parseInt(usuarioId));
+    if (!usuario) {
+      return res.status(404).json({ 
+        error: 'Usuario no encontrado' 
+      });
+    }
 
+    
       res.json({
         success: true,
         usuario
