@@ -66,7 +66,7 @@ async crearPerfil(datos) {
         FROM auth.usuarios 
         WHERE id = $1
       `;
-      
+      console.log(query)
       const result = await pool.query(query, [id]);
       return result.rows[0] || null;
 

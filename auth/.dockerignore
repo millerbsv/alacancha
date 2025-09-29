@@ -1,0 +1,20 @@
+# Dependencias locales (se vuelven a instalar en la imagen)
+node_modules
+
+# Archivos de control de versiones
+.git
+.gitignore
+
+# Archivos de configuración de Docker que no se necesitan dentro de la imagen
+Dockerfile
+.dockerignore
+
+# Archivos de entorno y secretos
+.env
+*.env
+
+# Logs y temporales
+npm-debug.log
+yarn-error.log
+*.log
+*.tmp

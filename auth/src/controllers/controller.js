@@ -83,6 +83,7 @@ export async function crearPerfil(req, res) {
 }
 
 export async function obtenerPerfil(req, res) {
+  console.log('ingreso a obterner perdil:');
     try {
       const usuarioId = req.body.id;
       const usuario = await User.obtenerUsuarioPorId(usuarioId);

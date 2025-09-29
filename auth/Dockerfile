@@ -14,7 +14,7 @@ RUN npm install --production
 COPY . .
 
 # Exponer el puerto que usa el microservicio
-EXPOSE 3001
+EXPOSE 3000
 
 # Comando de arranque
 CMD ["node", "src/index.js"]
