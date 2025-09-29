@@ -7,7 +7,7 @@ export default function Search() {
   
   
   const handleClick = () => {
-    axios.get('http://20.245.171.115/api/spot/buscarcupos', { params: { deporte: 'futbol' }})
+    axios.get('https://api.alacancha.online/api/spot/buscarcupos', { params: { deporte: 'futbol' }})
     .then((response) => {
       console.log(JSON.stringify(response.data));
       if(response.data.cupos.length > 0){
