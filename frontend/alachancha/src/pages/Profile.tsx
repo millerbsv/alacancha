@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default function Profile() {
   const [tab, setTab] = useState('profile');
-  const [history, setHistory] = useState<number | null>(null);
+  const [history, setHistory] = useState<any[] | null>(null);
 
   React.useEffect(() => {
     debugger;
@@ -21,19 +21,6 @@ export default function Profile() {
       });
 
   }, [tab]);
-
-
-  const handleClick = () => {
-    axios.post('https://api.alacancha.online/api/spot/participarcupo', { cupoId: item.id, usuarioId: import.meta.env.VITE_USER_ID },)
-      .then((response) => {
-        toast.success('Reserva realizada con éxito!', { position: 'top-center' });
-        navigate('/')
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
 
 
   return (

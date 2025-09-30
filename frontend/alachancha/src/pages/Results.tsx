@@ -24,10 +24,15 @@ export interface MarkerStruct {
   lat: number
   lon: number
   lugar: string
-  fecha: string  // o Date si manejas objetos Date
+  fecha: string
+  hora: string
+  valor: string
+  duracion: { hours: number; minutes: number}
+  deporte: string
 }
 
 export default function Results() {
+
   const [selectedMarker, setSelectedMarker] = useState<number | null>(null);
   const location = useLocation();
   const markers = location.state;

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface ReserveProps {
-  item: MarkerStruct;
+  item?: MarkerStruct;
   handleClickClose: () => void;   // ✅ nueva prop de tipo función sin parámetros
 }
 export function formatFecha (fechaISO: string): string {
@@ -40,6 +40,7 @@ export default function Reserve({ item, handleClickClose }: ReserveProps) {
 
     axios.post('https://api.alacancha.online/api/spot/participarcupo', { cupoId: item.id, usuarioId: import.meta.env.VITE_USER_ID },)
       .then((response) => {
+        console.log(response)
         toast.success('Reserva realizada con éxito!', { position: 'top-center' });
         navigate('/')
       })
