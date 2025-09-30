@@ -62,8 +62,8 @@ export default function Search() {
   }
 
   return (
-    <div className="relative flex h-screen w-full flex-col overflow-hidden">
-      <div className="flex flex-1">
+    <div className="relative flex h-screen w-full flex-col overflow-hidden items-center justify-center">
+      <div className="flex">
         <div className="w-full max-w-sm shrink-0 p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
           <div className="rounded-xl bg-gray-900/80 p-6 shadow-2xl backdrop-blur-lg border border-gray-700">
             <h2 className="text-2xl font-bold text-white tracking-tight">Busca tu próximo partido</h2>
