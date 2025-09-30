@@ -7,7 +7,6 @@ export default function History({ historyItem = [] }: { historyItem?: any[] }) {
     { id: 3, sport: 'Básquet', slot: 'Base',     date: '22 de Mayo, 2023', place: 'Coliseo Norte',   score: 5 },
     { id: 4, sport: 'Tenis',   slot: 'Individual',date: '25 de Mayo, 2023', place: 'Club Central',   score: 5 },
   ]; */
-  debugger;
 
   return (
     <div className='flex flex-1 w-full h-full gap-6 flex-col overflow-auto p-6'>

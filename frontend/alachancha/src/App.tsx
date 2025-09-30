@@ -3,6 +3,9 @@ import { Routes, Route } from 'react-router-dom'
 import Search from './pages/Search'
 import Results from './pages/Results'
 import Profile from './pages/Profile'
+import moment from 'moment';
+import 'moment/dist/locale/es'; // Importa el locale español
+moment.locale('es');
 
 function App() {
 

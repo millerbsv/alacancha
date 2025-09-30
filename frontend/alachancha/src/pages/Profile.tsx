@@ -8,11 +8,9 @@ export default function Profile() {
   const [history, setHistory] = useState<any[] | null>(null);
 
   React.useEffect(() => {
-    debugger;
     if (tab == 'profile') return;
     axios.post('https://api.alacancha.online/api/spot/historial', { usuarioId: import.meta.env.VITE_USER_ID  })
       .then((response) => {
-        debugger;
         console.log(JSON.stringify(response.data));
         setHistory(response.data)
       })
