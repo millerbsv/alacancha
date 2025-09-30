@@ -28,19 +28,13 @@ export interface MarkerStruct {
 }
 
 export default function Results() {
-  const [selectedMarker, setSelectedMarker] = useState<null | {
-    id: number
-    lugar: string
-    fecha : string
-  }>(null);
+  const [selectedMarker, setSelectedMarker] = useState<number | null>(null);
   const location = useLocation();
   const markers = location.state;
-  debugger;
-  // Marcadores de ejemplo
-  /* const markers = [
-    { id: 1, position: { lat: 6.252, lng: -75.56 }, title: 'Cancha 1', reserva: 'Reserva de 8:00 a 9:00 AM' },
-    { id: 2, position: { lat: 6.255, lng: -74.565 }, title: 'Cancha 2', reserva: 'Reserva de 10:00 a 11:00 AM' },
-  ] */
+
+  const handleClickClose = () => {
+    setSelectedMarker(null);
+  }
 
   return (
     <div className="relative flex h-screen w-full flex-col overflow-hidden">
@@ -59,14 +53,14 @@ export default function Results() {
               disableDefaultUI={true}
             >
               {
-              markers.map(({id, lat, lon, lugar, fecha }:MarkerStruct) => {
+              markers.map(({id, lat, lon, lugar}:MarkerStruct, index: number) => {
                 console.log({ lat: lat, lng: lon })
                 return (
                   <Marker
                     key={id}
                     position={{ lat: lat, lng: lon }}
                     clickable={true}
-                    onClick={() => setSelectedMarker({ id, lugar, fecha  })}
+                    onClick={() => setSelectedMarker(index)}
                     title={lugar}
                   />
                 )
@@ -80,9 +74,9 @@ export default function Results() {
 
       </div>
       {/* Modal */}
-      {selectedMarker && (
+      {selectedMarker !== null && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <Reserve/>
+          <Reserve item={markers[selectedMarker]} handleClickClose={handleClickClose}/>
         </div>
       )}
 
