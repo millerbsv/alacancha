@@ -53,7 +53,7 @@ export default function Reserve({ item, handleClickClose }: ReserveProps) {
   return (
     <div className="relative flex h-screen w-full flex-col overflow-hidden">
       <div className="flex flex-1 items-center p-4 overflow-hidden">
-        <div className="w-full h-full p-4 flex overflow-hidden items-center justify-center">
+        <div className="w-full h-full p-4 flex overflow-hidden">
           <div className="rounded-xl bg-[var(--primary-backgroun-color)] shadow-2xl backdrop-blur-lg border border-gray-700 flex flex-col overflow-hidden">
             <h2 className="px-6 text-2xl font-bold text-white tracking-tight">Detalle de partido</h2>
             <p className="px-6 py-4 text-base text-gray-400 border-b-2 border-gray-600">Información sobre el partido, si te gusta reserva.</p>
