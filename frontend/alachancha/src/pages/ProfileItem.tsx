@@ -11,7 +11,7 @@ export default function ProfileItem() {
 
   useEffect(() => {
 
-    axios.get(`http://api.alacancha.online/api/auth/perfil?usuarioId=1`)
+    axios.get(`https://api.alacancha.online/api/auth/perfil?usuarioId=1`)
       .then((response) => {
         setName(response.data.usuario.nombre)
         setEmail(response.data.usuario.correo)
