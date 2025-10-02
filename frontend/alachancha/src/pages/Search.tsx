@@ -74,7 +74,7 @@ export default function Search() {
                 <select className="form-select w-full rounded-lg border border-gray-600 bg-gray-800 py-3 pl-12 pr-10 text-base text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50" value={sport} onChange={onChangeSport}>
                   <option>Fútbol</option>
                   <option>Baloncesto</option>
-                  <option>Béisbol</option>
+                  <option>Voleibol</option>
                 </select>
               </div>
               <div className="relative w-full">

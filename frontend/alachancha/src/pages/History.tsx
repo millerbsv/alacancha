@@ -1,12 +1,6 @@
 import { formatFecha, formatHora } from './Reserve'  // ajusta la ruta según tu proyecto
 export default function History({ historyItem = [] }: { historyItem?: any[] }) {
 
-/*  const historyItem = [
-    { id: 1, sport: 'Fútbol', slot: 'Delantero', date: '15 de Mayo, 2023', place: 'Canchas del Sol', score: 5 },
-    { id: 2, sport: 'Fútbol', slot: 'Defensa',   date: '20 de Mayo, 2023', place: 'Canchas del Sol', score: 4 },
-    { id: 3, sport: 'Básquet', slot: 'Base',     date: '22 de Mayo, 2023', place: 'Coliseo Norte',   score: 5 },
-    { id: 4, sport: 'Tenis',   slot: 'Individual',date: '25 de Mayo, 2023', place: 'Club Central',   score: 5 },
-  ]; */
 
   return (
     <div className='flex flex-1 w-full h-full gap-6 flex-col overflow-auto p-6'>

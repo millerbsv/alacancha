@@ -27,18 +27,20 @@ export default function Reserve({ item, handleClickClose }: ReserveProps) {
     return [h, m].filter(Boolean).join(' ');
   }
 
-  const formatFecha = (fechaISO: string): string => {
+  const formatFecha = (fechaISO?: string): string => {
+    if(!fechaISO) return '';
     return moment(fechaISO).format('D [de] MMMM [de] YYYY');
   }
 
-  const formatHora = (hora: string): string => {
+  const formatHora = (hora?: string): string => {
+    if(!hora) return '';
     return moment(hora, 'HH:mm:ss').format('hh:mm A');
   }
 
   const handleClick = () => {
 
 
-    axios.post('https://api.alacancha.online/api/spot/participarcupo', { cupoId: item.id, usuarioId: import.meta.env.VITE_USER_ID },)
+    axios.post('https://api.alacancha.online/api/spot/participarcupo', { cupoId: item?.id, usuarioId: import.meta.env.VITE_USER_ID },)
       .then((response) => {
         console.log(response)
         toast.success('Reserva realizada con éxito!', { position: 'top-center' });
@@ -53,8 +55,8 @@ export default function Reserve({ item, handleClickClose }: ReserveProps) {
   return (
     <div className="relative flex h-screen w-full flex-col overflow-hidden">
       <div className="flex flex-1 items-center p-4 overflow-hidden">
-        <div className="w-full h-full p-4 flex overflow-hidden">
-          <div className="rounded-xl bg-[var(--primary-backgroun-color)] shadow-2xl backdrop-blur-lg border border-gray-700 flex flex-col overflow-hidden">
+        <div className="w-full h-full p-4 flex overflow-hidden justify-center">
+          <div className="pt-3 rounded-xl bg-[var(--primary-backgroun-color)] shadow-2xl backdrop-blur-lg border border-gray-700 flex flex-col overflow-hidden">
             <h2 className="px-6 text-2xl font-bold text-white tracking-tight">Detalle de partido</h2>
             <p className="px-6 py-4 text-base text-gray-400 border-b-2 border-gray-600">Información sobre el partido, si te gusta reserva.</p>
             <div className='p-6 flex flex-1 overflow-auto flex-col gap-6'>
@@ -62,42 +64,44 @@ export default function Reserve({ item, handleClickClose }: ReserveProps) {
                   <span className="material-symbols-outlined text-[var(--primary-color)] text-3xl">sports_soccer</span>
                   <div className='flex-1'>
                     <p className="text-sm text-gray-400">Deporte</p>
-                    <p className="font-semibold text-white">{item.deporte}</p>
+                    <p className="font-semibold text-white">{item?.deporte}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 p-4 bg-gray-800/50 rounded-lg">
                   <span className="material-symbols-outlined text-[var(--primary-color)] text-3xl">schedule</span>
                   <div className='flex-1'>
                     <p className="text-sm text-gray-400">Duración</p>
-                    <p className="font-semibold text-white">{formatDuration(item.duracion)}</p>
+                    {item?.duracion && (
+                      <p className="font-semibold text-white">{formatDuration(item.duracion)}</p>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center gap-4 p-4 bg-gray-800/50 rounded-lg">
                   <span className="material-symbols-outlined text-[var(--primary-color)] text-3xl">payments</span>
                   <div className='flex-1'>
                     <p className="text-sm text-gray-400">Valor Inscripción</p>
-                    <p className="font-semibold text-white">${item.valor}</p>
+                    <p className="font-semibold text-white">${item?.valor}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 p-4 bg-gray-800/50 rounded-lg">
                   <span className="material-symbols-outlined text-[var(--primary-color)] text-3xl">place</span>
                   <div className='flex-1'>
                     <p className="text-sm text-gray-400">Lugar</p>
-                    <p className="font-semibold text-white">{item.lugar}</p>
+                    <p className="font-semibold text-white">{item?.lugar}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 p-4 bg-gray-800/50 rounded-lg">
                   <span className="material-symbols-outlined text-[var(--primary-color)] text-3xl">calendar_today</span>
                   <div className='flex-1'>
                     <p className="text-sm text-gray-400">Fecha</p>
-                    <p className="font-semibold text-white">{formatFecha(item.fecha)}</p>
+                    <p className="font-semibold text-white">{formatFecha(item?.fecha?? '')}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 p-4 bg-gray-800/50 rounded-lg">
                   <span className="material-symbols-outlined text-[var(--primary-color)] text-3xl">access_time</span>
                   <div className='flex-1'>
                     <p className="text-sm text-gray-400">Hora de Inicio</p>
-                    <p className="font-semibold text-white">{formatHora(item.hora)}</p>
+                    <p className="font-semibold text-white">{formatHora(item?.hora ?? '')}</p>
                   </div>
                 </div>
 

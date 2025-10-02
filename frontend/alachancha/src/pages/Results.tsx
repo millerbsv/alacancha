@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { APIProvider, Map, Marker, useMap  } from '@vis.gl/react-google-maps';
 import Reserve from './Reserve';
 import { useLocation } from 'react-router-dom';
@@ -32,6 +33,7 @@ export interface MarkerStruct {
 }
 
 export default function Results() {
+  const navigate = useNavigate()
 
   const [selectedMarker, setSelectedMarker] = useState<number | null>(null);
   const location = useLocation();
@@ -39,6 +41,10 @@ export default function Results() {
 
   const handleClickClose = () => {
     setSelectedMarker(null);
+  }
+
+  const returnToSearch = () => {
+    navigate('/');
   }
 
   return (
@@ -73,6 +79,16 @@ export default function Results() {
               <FitBounds markers={markers} />
             </Map>
           </APIProvider>
+        </div>
+        <div className='p-6'>
+          <button
+            onClick={returnToSearch}
+            className="flex w-full cursor-pointer items-center justify-center rounded-lg h-12 px-4 bg-[var(--secundary-color)] text-white text-base font-bold leading-normal tracking-wide shadow-lg shadow-[var(--secundary-color)]/20 transition-all hover:bg-opacity-90 hover:shadow-xl hover:shadow-[var(--secundary-color)]/30"
+          >
+            <span className="material-symbols-outlined mr-2">search</span>
+            <span className="truncate">Realizar otra buscar</span>
+          </button>
+
         </div>
 
         
