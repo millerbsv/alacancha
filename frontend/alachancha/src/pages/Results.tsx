@@ -48,7 +48,7 @@ export default function Results() {
   }
 
   return (
-    <div className="relative flex h-screen w-full flex-col overflow-hidden">
+    <div className="relative flex flex-1 w-full flex-col overflow-hidden">
       <div className="flex flex-1 flex-col">
         <div className="w-full h-100 flex flex-col p-6 ">
           <h2 className="text-2xl font-bold text-white tracking-tight">Resultados</h2>

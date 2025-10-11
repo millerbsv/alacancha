@@ -50,7 +50,7 @@ export default function CreateProfile() {
       .then((response) => {
         console.log(response)
         toast.success('Perfil creado!', { position: 'top-center' });
-        navigate('/')
+        navigate('/login')
       })
       .catch((error) => {
         toast.error(error.response.data.detalle??error.response.data.error, { position: 'top-center' });
