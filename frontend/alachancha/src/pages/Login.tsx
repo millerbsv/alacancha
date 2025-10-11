@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { createAvatar } from '@dicebear/core';
 import axios from 'axios';
-import { avataaarsNeutral } from '@dicebear/collection';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from "../assets/logo.jpg";
@@ -10,7 +8,7 @@ import { useAppStore } from '../store/useAppStore';
 
 export default function Login() {
   const navigate = useNavigate();
-  const {setUser} = useAppStore();
+  const {setUser, setUserId} = useAppStore();
 
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -23,7 +21,7 @@ export default function Login() {
     setPass(e.target.value) // Actualiza el state cada vez que cambia el input
   }
 
-  const onCreateProfile = (e: any) => {
+  const onCreateProfile = () => {
     navigate('/createProfile')
   }
 
@@ -34,6 +32,7 @@ export default function Login() {
       axios.post('https://api.alacancha.online/api/auth/login', { username: email, password: pass},)
         .then((response) => {
           setUser(email);
+          setUserId(response.data.userid)
           toast.success('Hola y a jugar!', { position: 'top-center' });
           navigate('/')
         })

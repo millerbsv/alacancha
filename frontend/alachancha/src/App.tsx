@@ -7,11 +7,8 @@ import Profile from './pages/Profile'
 import Login from './pages/Login'
 import CreateProfile from './pages/CreateProfile'
 import moment from 'moment';
-import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar'
 import 'moment/dist/locale/es'; // Importa el locale español
 moment.locale('es');
-import { createAvatar } from '@dicebear/core';
-import { avataaarsNeutral } from '@dicebear/collection';
 import logo from "./assets/logo.jpg";
 import { useAppStore } from './store/useAppStore';
 
@@ -19,7 +16,6 @@ import { useAppStore } from './store/useAppStore';
 function App() {
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
   const {user, setUser} = useAppStore();
 
   const location = useLocation();
