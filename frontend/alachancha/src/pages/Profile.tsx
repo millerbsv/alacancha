@@ -2,14 +2,17 @@ import React, { useState } from 'react'
 import ProfileItem from './ProfileItem'
 import History from './History'
 import axios from 'axios';
+import { useAppStore } from '../store/useAppStore';
 
 export default function Profile() {
   const [tab, setTab] = useState('profile');
   const [history, setHistory] = useState<any[] | null>(null);
+  const {userId} = useAppStore();
+  debugger;
 
   React.useEffect(() => {
     if (tab == 'profile') return;
-    axios.get(`https://api.alacancha.online/api/spot/historial?usuarioId=${import.meta.env.VITE_USER_ID}`)
+    axios.get(`https://api.alacancha.online/api/spot/historial?usuarioId=${userId}`)
       .then((response) => {
         console.log(JSON.stringify(response.data));
         setHistory(response.data)
@@ -33,7 +36,7 @@ export default function Profile() {
           </div>
         </div>
         <div className="flex flex-1 w-full overflow-auto">
-          {tab == 'profile'  ? <ProfileItem /> : (history !== null ? <History historyItem={history}/>: <ProfileItem />) }
+          {tab == 'profile'  ? <ProfileItem userId={userId}/> : (history !== null ? <History historyItem={history}/>: <ProfileItem userId={userId}/>) }
         </div>
 
       </div>

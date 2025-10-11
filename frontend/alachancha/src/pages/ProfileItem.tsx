@@ -3,15 +3,15 @@ import { createAvatar } from '@dicebear/core';
 import axios from 'axios';
 import { avataaarsNeutral } from '@dicebear/collection';
 
-export default function ProfileItem() {
+export default function ProfileItem({ userId }: { userId: number }) {
   type SportKey = 'futbol' | 'baloncesto' | 'voleibol';
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [sports, setSports] = useState({futbol:false, baloncesto:false, voleibol:false});
 
   useEffect(() => {
-
-    axios.get(`https://api.alacancha.online/api/auth/perfil?usuarioId=1`)
+    debugger;
+    axios.get(`https://api.alacancha.online/api/auth/perfil?usuarioId=${userId}`)
       .then((response) => {
         setName(response.data.usuario.nombre)
         setEmail(response.data.usuario.correo)
