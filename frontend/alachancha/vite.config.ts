@@ -13,11 +13,11 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'Mi SPA PWA',
-        short_name: 'MiPWA',
-        description: 'Una PWA creada con React + Vite',
+        name: 'A la cancha app',
+        short_name: 'CANCHAPP',
+        description: 'Aplicación para la búsqueda de cupos deportivos',
         theme_color: '#ffffff',
-        background_color: '#ffffff',
+        background_color: '#111827',
         display: 'standalone',
         start_url: '/',
         icons: [

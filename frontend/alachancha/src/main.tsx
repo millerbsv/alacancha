@@ -11,10 +11,14 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 registerSW({
+  immediate: true, // fuerza el registro al cargar
   onNeedRefresh() {
     if (confirm('Hay una nueva versión disponible. ¿Actualizar ahora?')) {
       window.location.reload()
     }
+  },
+  onOfflineReady() {
+    console.log('La aplicación está lista para funcionar sin conexión 🚀')
   }
 })
 
