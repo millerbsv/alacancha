@@ -3,12 +3,15 @@ import ProfileItem from './ProfileItem'
 import History from './History'
 import axios from 'axios';
 import { useAppStore } from '../store/useAppStore';
+import { Navigate } from 'react-router-dom'
 
 export default function Profile() {
   const [tab, setTab] = useState('profile');
   const [history, setHistory] = useState<any[] | null>(null);
   const {userId} = useAppStore();
-  debugger;
+  if(!userId) {
+    return <Navigate to="/login" replace />;
+  }
 
   React.useEffect(() => {
     if (tab == 'profile') return;
@@ -25,7 +28,7 @@ export default function Profile() {
 
 
   return (
-    <div className="relative flex h-screen w-full flex-col overflow-hidden items-center justify-center">
+    <div className="relative flex flex-1 w-full flex-col overflow-hidden items-center justify-center">
       <div className="flex flex-1 items-center overflow-hidden flex-col max-w-md">
         <div className="flex flex-row w-full px-4 border-b-2 border-gray-600 justify-between">
           <div onClick={() => setTab('profile')} className={`bg-[var(--primary-backgroun-color)] whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg transition-colors ${tab == 'profile' ? 'border-[var(--primary-color)] text-white' : 'border-transparent'} hover:text-white hover:border-[var(--primary-color)]`}>
@@ -35,9 +38,7 @@ export default function Profile() {
             Historial de Participaciones
           </div>
         </div>
-        <div className="flex flex-1 w-full overflow-auto">
-          {tab == 'profile'  ? <ProfileItem userId={userId}/> : (history !== null ? <History historyItem={history}/>: <ProfileItem userId={userId}/>) }
-        </div>
+          {tab == 'profile'  ? <div className="flex flex-1 w-full overflow-auto"><ProfileItem userId={userId}/></div> : (history !== null ? <History historyItem={history}/>: <div className="flex flex-1 w-full overflow-auto"><ProfileItem userId={userId}/></div>) }
 
       </div>
     </div>

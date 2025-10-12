@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
 import { APIProvider, Map, Marker, useMap  } from '@vis.gl/react-google-maps';
 import Reserve from './Reserve';
 import { useLocation } from 'react-router-dom';
 
 function FitBounds({ markers }: { markers: { lat:number, lon:number }[] }) {
   const map = useMap(); // obtiene el objeto google.maps.Map
+
+  if(markers.length === 0) {
+    return <Navigate to="/" replace />;
+  }
 
   React.useEffect(() => {
     if (!map || markers.length === 0) return;

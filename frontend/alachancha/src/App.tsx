@@ -42,11 +42,11 @@ function App() {
               </div>
             </div>
             <div className="w-full h-100 flex flex-col p-6 border-b-2 border-gray-600">
-              <h2 className="text-2xl font-bold tracking-tight">Menu</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-black">Menu</h2>
             </div>
             <div className='p-6 flex flex-col'>
               {user === null ? 
-              <Link to="/login" className='h-[32px] w-full flex gap-4 items-center' onClick={() => setIsOpen(false)}>
+              <Link to="/login" className='h-[32px] w-full flex gap-4 items-center text-black' onClick={() => setIsOpen(false)}>
                 <span className="material-symbols-outlined"> person </span>
                 <div className='flex-1 text-left'>
                   Iniciar sesión
@@ -54,20 +54,20 @@ function App() {
               </Link>
               : ''}
               
-              <Link to="/  " className='h-[32px] w-full flex gap-4 items-center' onClick={() => setIsOpen(false)}>
+              <Link to="/  " className='h-[32px] w-full flex gap-4 items-center text-black' onClick={() => setIsOpen(false)}>
                 <span className="material-symbols-outlined"> search </span>
                 <div className='flex-1 text-left'>
                   Buscar
                 </div>
               </Link>
               {user !== null ? <>
-              <Link to="/profile" className='h-[32px] w-full flex gap-4 items-center' onClick={() => setIsOpen(false)}>
+              <Link to="/profile" className='h-[32px] w-full flex gap-4 items-center text-black' onClick={() => setIsOpen(false)}>
                 <span className="material-symbols-outlined"> person </span>
                 <div className='flex-1 text-left'>
                   Perfil
                 </div>
               </Link>
-              <div className='h-[32px] w-full flex gap-4 items-center' onClick={() => {setUser(null); setIsOpen(false); navigate('/');}}>
+              <div className='h-[32px] w-full flex gap-4 items-center text-black' onClick={() => {setUser(null); setIsOpen(false); navigate('/');}}>
                 <span className="material-symbols-outlined"> close </span>
                 <div className='flex-1 text-left'>
                   Salir

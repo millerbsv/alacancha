@@ -10,7 +10,6 @@ export default function ProfileItem({ userId }: { userId: number }) {
   const [sports, setSports] = useState({futbol:false, baloncesto:false, voleibol:false});
 
   useEffect(() => {
-    debugger;
     axios.get(`https://api.alacancha.online/api/auth/perfil?usuarioId=${userId}`)
       .then((response) => {
         setName(response.data.usuario.nombre)

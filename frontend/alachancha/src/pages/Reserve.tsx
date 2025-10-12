@@ -4,6 +4,7 @@ import moment from 'moment';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAppStore } from '../store/useAppStore';
 
 interface ReserveProps {
   item?: MarkerStruct;
@@ -19,6 +20,7 @@ export function formatHora (hora: string): string {
 
 export default function Reserve({ item, handleClickClose }: ReserveProps) {
   const navigate = useNavigate()
+  const {userId} = useAppStore();
 
   const formatDuration = (duracion:{ hours: number; minutes: number}) => {
     const { hours, minutes } = duracion;
@@ -38,9 +40,13 @@ export default function Reserve({ item, handleClickClose }: ReserveProps) {
   }
 
   const handleClick = () => {
+    debugger
 
-
-    axios.post('https://api.alacancha.online/api/spot/participarcupo', { cupoId: item?.id, usuarioId: import.meta.env.VITE_USER_ID },)
+    if(!userId){
+      navigate('/login', { replace: true });
+      return; // evita seguir con la ejecución del axios
+    }
+    axios.post('https://api.alacancha.online/api/spot/participarcupo', { cupoId: item?.id, usuarioId: userId },)
       .then((response) => {
         console.log(response)
         toast.success('Reserva realizada con éxito!', { position: 'top-center' });
