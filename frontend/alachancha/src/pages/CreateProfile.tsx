@@ -1,4 +1,4 @@
-import { useState} from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createAvatar } from '@dicebear/core';
 import axios from 'axios';
@@ -15,7 +15,30 @@ export default function CreateProfile() {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [sports, setSports] = useState({ futbol: false, baloncesto: false, voleibol: false });
+  const [location, setLocation] = useState({
+    lat: 3.442,
+    lng: -76.528,
+  });
 
+
+  React.useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (err) => {
+          toast.error(err.message);
+        },
+        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 } // Optional options
+      );
+    } else {
+      toast.error("Geolocation is not supported by your browser.");
+    }
+  }, []);
 
 
   const onChangeSport = (key: SportKey) => {
@@ -40,20 +63,20 @@ export default function CreateProfile() {
   const onSaveProfile = () => {
 
     let sport = [];
-    if(sports.futbol)
+    if (sports.futbol)
       sport.push('futbol')
-    if(sports.baloncesto)
+    if (sports.baloncesto)
       sport.push('baloncesto')
-    if(sports.voleibol)
+    if (sports.voleibol)
       sport.push('voleibol')
-    axios.post('https://api.alacancha.online/api/auth/crearperfil', { nombre: name , correo: email, contrasena: pass, deportes_preferidos:`{${sport.toString()}}` },)
+    axios.post('https://api.alacancha.online/api/auth/crearperfil', { nombre: name, correo: email, contrasena: pass, deportes_preferidos: `{${sport.toString()}}`, lat:location.lat, lon:location.lng },)
       .then((response) => {
         console.log(response)
         toast.success('Perfil creado!', { position: 'top-center' });
         navigate('/login')
       })
       .catch((error) => {
-        toast.error(error.response.data.detalle??error.response.data.error, { position: 'top-center' });
+        toast.error(error.response.data.detalle ?? error.response.data.error, { position: 'top-center' });
         console.log(error);
       });
   }

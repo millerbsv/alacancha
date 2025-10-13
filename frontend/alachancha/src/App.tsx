@@ -6,6 +6,7 @@ import Results from './pages/Results'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
 import CreateProfile from './pages/CreateProfile'
+import CreateSpot from './pages/CreateSpot'
 import moment from 'moment';
 import 'moment/dist/locale/es'; // Importa el locale español
 moment.locale('es');
@@ -67,7 +68,13 @@ function App() {
                   Perfil
                 </div>
               </Link>
-              <div className='h-[32px] w-full flex gap-4 items-center text-black' onClick={() => {setUser(null); setIsOpen(false); navigate('/');}}>
+              <Link to="/createspot" className='h-[32px] w-full flex gap-4 items-center text-black' onClick={() => setIsOpen(false)}>
+                <span className="material-symbols-outlined"> Sports </span>
+                <div className='flex-1 text-left'>
+                  Crear cupo
+                </div>
+              </Link>
+              <div className='h-[32px] mt-[100px] w-full flex gap-4 items-center text-black' onClick={() => {setUser(null); setIsOpen(false); navigate('/');}}>
                 <span className="material-symbols-outlined"> close </span>
                 <div className='flex-1 text-left'>
                   Salir
@@ -85,6 +92,7 @@ function App() {
             <Route path="/" element={<Search />} />
             <Route path="/results" element={<Results />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/createspot" element={<CreateSpot />} />
             <Route path="/createProfile" element={<CreateProfile />} />
             <Route path="/login" element={<Login />} />
           </Routes>
