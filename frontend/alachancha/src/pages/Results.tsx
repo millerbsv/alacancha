@@ -34,6 +34,7 @@ export interface MarkerStruct {
   valor: string
   duracion: { hours: number; minutes: number}
   deporte: string
+  creador_nombre: string
 }
 
 export default function Results() {

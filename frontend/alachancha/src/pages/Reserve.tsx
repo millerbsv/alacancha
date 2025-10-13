@@ -21,6 +21,7 @@ export function formatHora (hora: string): string {
 export default function Reserve({ item, handleClickClose }: ReserveProps) {
   const navigate = useNavigate()
   const {userId} = useAppStore();
+  debugger
 
   const formatDuration = (duracion:{ hours: number; minutes: number}) => {
     const { hours, minutes } = duracion;
@@ -110,7 +111,13 @@ export default function Reserve({ item, handleClickClose }: ReserveProps) {
                     <p className="font-semibold text-white">{formatHora(item?.hora ?? '')}</p>
                   </div>
                 </div>
-
+                <div className="flex items-center gap-4 p-4 bg-gray-800/50 rounded-lg">
+                  <span className="material-symbols-outlined text-[var(--primary-color)] text-3xl">person</span>
+                  <div className='flex-1'>
+                    <p className="text-sm text-gray-400">Anfitrión</p>
+                    <p className="font-semibold text-white">{item?.creador_nombre}</p>
+                  </div>
+                </div>
             </div>
             <div className="px-6 py-2 border-t-2 border-gray-600 gap-2 flex flex-col">
               <button

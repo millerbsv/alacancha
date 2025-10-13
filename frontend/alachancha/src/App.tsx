@@ -17,7 +17,7 @@ import { useAppStore } from './store/useAppStore';
 function App() {
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
-  const {user, setUser} = useAppStore();
+  const {user, setUser, setUserId} = useAppStore();
 
   const location = useLocation();
 
@@ -74,7 +74,7 @@ function App() {
                   Crear cupo
                 </div>
               </Link>
-              <div className='h-[32px] mt-[100px] w-full flex gap-4 items-center text-black' onClick={() => {setUser(null); setIsOpen(false); navigate('/');}}>
+              <div className='h-[32px] mt-[100px] w-full flex gap-4 items-center text-black' onClick={() => {setUserId(null); setUser(null); setIsOpen(false); navigate('/');}}>
                 <span className="material-symbols-outlined"> close </span>
                 <div className='flex-1 text-left'>
                   Salir

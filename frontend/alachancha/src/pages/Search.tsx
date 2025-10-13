@@ -1,10 +1,37 @@
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 
 export default function Search() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [location, setLocation] = useState({
+      lat: 3.442,
+      lng: -76.528,
+  });
+  React.useEffect(() => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setLocation({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            });
+          },
+          (err) => {
+            toast.error(err.message);
+          },
+          { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 } // Optional options
+        );
+      } else {
+        toast.error("Geolocation is not supported by your browser.");
+      }
+    }, []);
+
+  
+
+
   const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -20,7 +47,7 @@ export default function Search() {
   const [date, setDate] = useState(getTodayDate())
   const [hour, setHour] = useState(getCurrentTime())
   const [sport, setSport] = useState('futbol')
-
+  
   const onChangeDate = (e: any) => {
     setDate(e.target.value) // Actualiza el state cada vez que cambia el input
   }
@@ -38,7 +65,7 @@ export default function Search() {
 
   const handleClick = () => {
 
-    let params: Record<string, string> = {};
+    let params: Record<string, any> = {};
     if (date !== '') {
       params['fecha'] = date
     }
@@ -49,11 +76,17 @@ export default function Search() {
       params['deporte'] = sport
     }
 
+    params['lat'] = location.lat;
+    params['lon'] = location.lng;
+    params['radio'] = 15;
+
     axios.get('https://api.alacancha.online/api/spot/buscarcupos', { params: params })
       .then((response) => {
         console.log(JSON.stringify(response.data));
         if (response.data.cupos.length > 0) {
           navigate('/results', { state: response.data.cupos })
+        } else {
+          toast.warning('No hay resultado')
         }
       })
       .catch((error) => {
