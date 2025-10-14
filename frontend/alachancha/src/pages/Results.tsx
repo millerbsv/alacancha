@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate, Navigate } from 'react-router-dom'
-import { APIProvider, Map, Marker, useMap  } from '@vis.gl/react-google-maps';
+import { APIProvider, Map, Marker, useMap } from '@vis.gl/react-google-maps';
 import Reserve from './Reserve';
 import { useLocation } from 'react-router-dom';
+import {MarkerClusterer} from '@googlemaps/markerclusterer';
 
 function FitBounds({ markers }: { markers: { lat:number, lon:number }[] }) {
   const map = useMap(); // obtiene el objeto google.maps.Map
@@ -20,8 +21,41 @@ function FitBounds({ markers }: { markers: { lat:number, lon:number }[] }) {
     // Ajusta el mapa a los marcadores
     map.fitBounds(bounds);
   }, [map, markers]);
+  
 
   return null; // no renderiza nada, solo ejecuta la lógica
+}
+
+function ClusterMarkers({ markers, onMarkerClick }: {
+  markers: MarkerStruct[],
+  onMarkerClick: (index: number) => void
+}) {
+  const map = useMap();
+
+  React.useEffect(() => {
+    if (!map || markers.length === 0) return;
+
+    // Limpiar clúster previo si lo hubiera
+    let clusterer: MarkerClusterer | null = null;
+
+    const gmarkers = markers.map((marker, index) => {
+      const gm = new google.maps.Marker({
+        position: { lat: marker.lat, lng: marker.lon },
+        title: marker.lugar
+      });
+
+      gm.addListener('click', () => onMarkerClick(index));
+      return gm;
+    });
+
+    clusterer = new MarkerClusterer({ map, markers: gmarkers });
+
+    return () => {
+      clusterer?.clearMarkers();
+    };
+  }, [map, markers, onMarkerClick]);
+
+  return null;
 }
 
 export interface MarkerStruct {
@@ -81,6 +115,7 @@ export default function Results() {
                   />
                 )
               })}
+              <ClusterMarkers markers={markers} onMarkerClick={setSelectedMarker} />
               <FitBounds markers={markers} />
             </Map>
           </APIProvider>

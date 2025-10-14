@@ -85,7 +85,7 @@ export default function CreateProfile() {
 
 
   return (
-    <div className="relative flex h-screen w-full flex flex-col overflow-hidden items-center justify-center">
+    <div className="relative flex flex-1 w-full flex flex-col overflow-hidden items-center justify-center">
       <div className="w-full h-100 flex flex-col p-6 border-b-2 border-gray-600">
         <h2 className="text-2xl font-bold text-white tracking-tight">Crear perfil</h2>
         <p className="mt-1 text-base text-gray-400">Estas a un paso de ser parte de la comunidad</p>

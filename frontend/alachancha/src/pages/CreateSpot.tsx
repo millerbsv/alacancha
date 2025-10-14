@@ -94,6 +94,14 @@ export default function CreateSpot() {
       .then((response) => {
         console.log(response)
         toast.success('Cupo creado!', { position: 'top-center' });
+        setSport('fútbol');
+        setAmount(1);
+        setRol('');
+        setPickPlace(null);
+        setDate(getTodayDate());
+        setHour(getCurrentTime());
+        setDurationVal('');
+        setPrice('');
         navigate('/createSpot')
       })
       .catch((error) => {

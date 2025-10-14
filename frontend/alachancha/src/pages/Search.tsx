@@ -2,10 +2,13 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useAppStore } from '../store/useAppStore';
 
 
 export default function Search() {
   const navigate = useNavigate();
+  const {userId} = useAppStore();
+  
   const [location, setLocation] = useState({
       lat: 3.442,
       lng: -76.528,
@@ -79,6 +82,7 @@ export default function Search() {
     params['lat'] = location.lat;
     params['lon'] = location.lng;
     params['radio'] = 15;
+    params['userId'] = userId;
 
     axios.get('https://api.alacancha.online/api/spot/buscarcupos', { params: params })
       .then((response) => {
