@@ -1,31 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { createAvatar } from '@dicebear/core';
-import axios from 'axios';
 import { avataaarsNeutral } from '@dicebear/collection';
+import { useAppStore } from '../store/useAppStore';
 
-export default function ProfileItem({ userId }: { userId: number }) {
+export default function ProfileItem() {
   type SportKey = 'futbol' | 'baloncesto' | 'voleibol';
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [sports, setSports] = useState({futbol:false, baloncesto:false, voleibol:false});
-
-  useEffect(() => {
-    axios.get(`https://api.alacancha.online/api/auth/perfil?usuarioId=${userId}`)
-      .then((response) => {
-        setName(response.data.usuario.nombre)
-        setEmail(response.data.usuario.correo)
-        const sports = {
-          futbol: response.data.usuario.deportes_preferidos.includes('fútbol'),
-          baloncesto: response.data.usuario.deportes_preferidos.includes('baloncesto'),
-          voleibol: response.data.usuario.deportes_preferidos.includes('voleibol'),
-        };
-        setSports(sports)
-        console.log(JSON.stringify(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const {profile} = useAppStore();
+  const [name, setName] = useState(profile.usuario.nombre);
+  const [email, setEmail] = useState(profile.usuario.correo);
+  const [sports, setSports] = useState({
+    futbol: profile.usuario.deportes_preferidos.includes('fútbol'),
+    baloncesto: profile.usuario.deportes_preferidos.includes('baloncesto'),
+    voleibol: profile.usuario.deportes_preferidos.includes('voleibol'),
+  });
 
   const onChangeSport = (key:SportKey ) => {
     setSports((prev) => ({
@@ -69,15 +56,15 @@ export default function ProfileItem({ userId }: { userId: number }) {
           <h3 className="text-lg font-medium text-white">Deportes de Interés</h3>
           <div className="flex gap-6 items-center justify-center">
             <label className="flex items-center space-x-3 cursor-pointer">
-              <input className="form-checkbox h-5 w-5 rounded bg-gray-700 border-gray-600 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" type="checkbox" onChange={() => onChangeSport('futbol')} checked={sports.futbol}/>
+              <input className="form-checkbox h-5 w-5 rounded bg-gray-700 border-gray-600 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" disabled={false} type="checkbox" onChange={() => onChangeSport('futbol')} checked={sports.futbol}/>
               <span className="text-white">Fútbol</span>
             </label>
             <label className="flex items-center space-x-3 cursor-pointer">
-              <input className="form-checkbox h-5 w-5 rounded bg-gray-700 border-gray-600 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" type="checkbox" onChange={() => onChangeSport('baloncesto')} checked={sports.baloncesto}/>
+              <input className="form-checkbox h-5 w-5 rounded bg-gray-700 border-gray-600 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" disabled={false} type="checkbox" onChange={() => onChangeSport('baloncesto')} checked={sports.baloncesto}/>
               <span className="text-white">Baloncesto</span>
             </label>
             <label className="flex items-center space-x-3 cursor-pointer">
-              <input className="form-checkbox h-5 w-5 rounded bg-gray-700 border-gray-600 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" type="checkbox" onChange={() => onChangeSport('voleibol')} checked={sports.voleibol}/>
+              <input className="form-checkbox h-5 w-5 rounded bg-gray-700 border-gray-600 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" disabled={false} type="checkbox" onChange={() => onChangeSport('voleibol')} checked={sports.voleibol}/>
               <span className="text-white">Voleibol</span>
             </label>
           </div>

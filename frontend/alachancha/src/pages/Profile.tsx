@@ -7,8 +7,8 @@ import { Navigate } from 'react-router-dom'
 
 export default function Profile() {
   const [tab, setTab] = useState('profile');
-  const [history, setHistory] = useState<any[] | null>(null);
-  const {userId} = useAppStore();
+  const {userId, setHistory, history} = useAppStore();
+
   if(!userId) {
     return <Navigate to="/login" replace />;
   }
@@ -38,7 +38,7 @@ export default function Profile() {
             Historial de Participaciones
           </div>
         </div>
-          {tab == 'profile'  ? <div className="flex flex-1 w-full overflow-auto"><ProfileItem userId={userId}/></div> : (history !== null ? <History historyItem={history}/>: <div className="flex flex-1 w-full overflow-auto"><ProfileItem userId={userId}/></div>) }
+          {tab == 'profile'  ? <div className="flex flex-1 w-full overflow-auto"><ProfileItem /></div> : (history !== null ? <History historyItem={history}/>: <div className="flex flex-1 w-full overflow-auto"><ProfileItem /></div>) }
 
       </div>
     </div>

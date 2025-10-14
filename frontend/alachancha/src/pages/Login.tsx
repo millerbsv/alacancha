@@ -8,7 +8,7 @@ import { useAppStore } from '../store/useAppStore';
 
 export default function Login() {
   const navigate = useNavigate();
-  const {setUser, setUserId} = useAppStore();
+  const {setUser, setUserId, setHistory, setProfile} = useAppStore();
 
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
@@ -27,25 +27,51 @@ export default function Login() {
 
 
 
-  const onLogin = () => {
-    if(email !== '' && pass !== ''){
-      axios.post('https://api.alacancha.online/api/auth/login', { username: email, password: pass},)
-        .then((response) => {
-          setUser(email);
-          setUserId(response.data.userid)
-          toast.success('Hola y a jugar!', { position: 'top-center' });
-          navigate('/')
-        })
-        .catch((error) => {
-          toast.error(error.response.data.detalle ?? error.response.data.error ?? error.response.data.message, { position: 'top-center' });
-          console.log(error);
-        });
-    } else {
-      toast.error('Debes ingresa correo y contraseña', { position: 'top-center' });
-    }
-
+  const onLogin = async () => {
+  if (email === '' || pass === '') {
+    toast.error('Debes ingresar correo y contraseña', { position: 'top-center' });
+    return;
   }
 
+  try {
+    // 1️⃣ Autenticación
+    const loginRes = await axios.post('https://api.alacancha.online/api/auth/login', {
+      username: email,
+      password: pass,
+    });
+
+    const userId = loginRes.data.userid;
+    setUser(email);
+    setUserId(userId);
+
+    // 2️⃣ Ejecuta historial y perfil en paralelo
+    const [historialRes, perfilRes] = await Promise.all([
+      axios.get(`https://api.alacancha.online/api/spot/historial?usuarioId=${userId}`),
+      axios.get(`https://api.alacancha.online/api/auth/perfil?usuarioId=${userId}`)
+    ]);
+
+    // 3️⃣ Guarda la información
+    setHistory(historialRes.data);
+    setProfile(perfilRes.data);
+
+    console.log('Historial:', historialRes.data);
+    console.log('Perfil:', perfilRes.data);
+
+    // 4️⃣ Muestra mensaje y redirige
+    toast.success('¡Hola y a jugar!', { position: 'top-center' });
+    navigate('/');
+
+  } catch (error: any) {
+    console.error('Error en login o carga de datos:', error);
+    toast.error(
+      error.response?.data?.detalle ??
+      error.response?.data?.error ??
+      error.response?.data?.message ??
+      'Error al iniciar sesión',
+      { position: 'top-center' }
+    );
+  }
+};
 
 
 
