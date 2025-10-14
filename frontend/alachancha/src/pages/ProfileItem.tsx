@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { createAvatar } from '@dicebear/core';
 import { avataaarsNeutral } from '@dicebear/collection';
 import { useAppStore } from '../store/useAppStore';
+import { initPushNotifications } from '../utils/notifications';
+import { toast } from 'react-toastify';
 
 export default function ProfileItem() {
   type SportKey = 'futbol' | 'baloncesto' | 'voleibol';
-  const {profile} = useAppStore();
+  const {profile, userId} = useAppStore();
   const [name, setName] = useState(profile.usuario.nombre);
   const [email, setEmail] = useState(profile.usuario.correo);
   const [sports, setSports] = useState({
@@ -28,6 +30,22 @@ export default function ProfileItem() {
   const onChangeEmail = (e: any) => {
     setEmail(e.target.value) // Actualiza el state cada vez que cambia el input
   }
+
+
+  const enablePush = async () => {
+    if (!userId) {
+      toast.error('Debes iniciar sesión para activar notificaciones');
+      return;
+    }
+
+    try {
+      await initPushNotifications(userId);
+      toast.success('Notificaciones activadas correctamente 🎉');
+    } catch (error: any) {
+      console.error(error);
+      toast.error('No se pudieron activar las notificaciones ❌');
+    }
+  };
 
   
   
@@ -67,7 +85,15 @@ export default function ProfileItem() {
               <input className="form-checkbox h-5 w-5 rounded bg-gray-700 border-gray-600 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" disabled={false} type="checkbox" onChange={() => onChangeSport('voleibol')} checked={sports.voleibol}/>
               <span className="text-white">Voleibol</span>
             </label>
+
+
           </div>
+            <button
+              onClick={enablePush}
+              className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+            >
+              Activar Notificaciones Push
+            </button>
         </div>
       </div>
       <div className="p-6 flex">
