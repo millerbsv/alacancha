@@ -124,16 +124,13 @@ export default function CreateSpot() {
   }
 
   return (
-    <div className="relative flex flex-1 w-full flex-col overflow-hidden">
+    <div className="relative flex flex-1 w-full flex-col overflow-hidden items-center">
       <div className="w-full h-100 flex flex-col p-6 ">
         <h2 className="text-2xl font-bold text-white tracking-tight">Cupos</h2>
         <p className="mt-1 text-base text-gray-400">Crea un cupo para informar a los demás que los necesitas</p>
       </div>
-      <div className="grid p-6 grid-cols-1 lg:grid-cols-3 gap-8 overflow-auto">
-        <div className="lg:col-span-1 flex flex-col items-center">
-
-        </div>
-        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="p-6 overflow-auto">
+        <div className="md:grid-cols-2 grid grid-cols-1 sm:grid-cols-1 gap-6">
           <div className="relative">
             <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"> sports </span>
             <select className="form-select w-full rounded-lg border border-gray-600 bg-gray-800 py-3 pl-12 pr-10 text-base text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50" value={sport} onChange={onChangeSport}>
@@ -158,7 +155,7 @@ export default function CreateSpot() {
             <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"> schedule </span>
             <input className="form-input w-full rounded-lg border border-gray-600 bg-gray-800 py-3 pl-12 pr-4 text-base text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50" placeholder="Duración" type="number" value={durationVal} onChange={onChangeDuration} />
           </div>
-          <div className="sm:col-span-2 relative">
+          <div className="relative w-full">
             <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"> payments </span>
             <input className="form-input w-full rounded-lg border border-gray-600 bg-gray-800 py-3 pl-12 pr-4 text-base text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50" placeholder="Valor inscripción" type="number" value={price} onChange={onChangePrice} />
           </div>

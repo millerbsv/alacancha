@@ -21,17 +21,17 @@ export default function History({ historyItem = [] }: { historyItem?: any[] }) {
 
   return (
     <>
-    <div className='flex flex-1 w-full h-full gap-6 flex-col overflow-auto p-6'>
+    <div className='grid md:grid-cols-2 sd:grid-cols-1 flex flex-1 w-full h-full gap-6 flex-col overflow-auto p-6'>
       {historyItem.map(({participacion_id, deporte, rol, hora, fecha, lugar, cupo_estado, creador_id, calificaciones, cupo_id}) => {
         const filtradas = calificaciones.filter((c: any) => c.evaluado_id === userId);
         const filtradas2 = calificaciones.filter((c: any) => c.evaluado_id !== userId);
                       return (
-                        <div key={participacion_id} className="bg-gray-800/50 rounded-lg p-4 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                        <div key={participacion_id} className="bg-gray-800/50 rounded-lg p-4 grid grid-cols-1 gap-4 items-center">
                           <div className='flex items-center text-lg justify-between text-white'>
                             <div>{creador_id === userId ? 'Creador':'Participante'}</div>
                             <div className={`size-[16px] rounded-full ${cupo_estado === 'finalizado' ? 'bg-green-600': 'bg-yellow-600'} border b-1`}></div>
                           </div>
-                          <div className="md:col-span-2">
+                          <div className="">
                             <p className="text-lg font-bold text-white">{deporte}</p>
                             <p className="text-sm text-gray-400">{rol}</p>
                           </div>

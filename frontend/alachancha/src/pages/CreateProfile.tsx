@@ -90,7 +90,7 @@ export default function CreateProfile() {
         <h2 className="text-2xl font-bold text-white tracking-tight">Crear perfil</h2>
         <p className="mt-1 text-base text-gray-400">Estas a un paso de ser parte de la comunidad</p>
       </div>
-      <div className="flex flex-1 flex-col w-full p-6 gap-8 overflow-auto">
+      <div className="flex flex-1 flex-col w-full p-6 gap-8 overflow-auto items-center">
         <div className="flex flex-col items-center">
           <div className="relative h-40 w-40 mb-6">
             <div
@@ -99,7 +99,7 @@ export default function CreateProfile() {
             />
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-6 max-w-md">
           <div className="col-span-2 relative">
             <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"> person </span>
             <input className="form-input w-full rounded-lg border border-gray-600 bg-gray-800 py-3 pl-12 pr-4 text-base text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50" placeholder="Nombres y Apellidos" type="text" onChange={onChangeName} value={name} />
