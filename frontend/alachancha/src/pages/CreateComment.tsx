@@ -9,7 +9,6 @@ interface CreateCommentProps {
 }
 
 export default function CreateComment({ commentItem, handleClickClose }: CreateCommentProps) {
-  debugger;
   const [calification, setCalification] = useState('');
   const [comment, setComment] = useState('');
 

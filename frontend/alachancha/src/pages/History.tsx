@@ -23,7 +23,6 @@ export default function History({ historyItem = [] }: { historyItem?: any[] }) {
     <>
     <div className='flex flex-1 w-full h-full gap-6 flex-col overflow-auto p-6'>
       {historyItem.map(({participacion_id, deporte, rol, hora, fecha, lugar, cupo_estado, creador_id, calificaciones, cupo_id}) => {
-        debugger
         const filtradas = calificaciones.filter((c: any) => c.evaluado_id === userId);
         const filtradas2 = calificaciones.filter((c: any) => c.evaluado_id !== userId);
                       return (

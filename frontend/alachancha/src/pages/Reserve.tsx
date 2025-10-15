@@ -21,7 +21,6 @@ export function formatHora (hora: string): string {
 export default function Reserve({ item, handleClickClose }: ReserveProps) {
   const navigate = useNavigate()
   const {userId} = useAppStore();
-  debugger
 
   const formatDuration = (duracion:{ hours: number; minutes: number}) => {
     const { hours, minutes } = duracion;
@@ -41,7 +40,6 @@ export default function Reserve({ item, handleClickClose }: ReserveProps) {
   }
 
   const handleClick = () => {
-    debugger
 
     if(!userId){
       navigate('/login', { replace: true });

@@ -110,12 +110,7 @@ export default function CreateSpot() {
       });
   }
 
-  onCreateSpot
-
-
-
   const onUpdatePlace = (namePlace: string, location: { lat: number; lng: number }) => {
-    debugger
     if (namePlace == '' || !location) {
       toast.error('Es obligatorio el nombre y localizacin del lugar', { position: 'top-center' });
     } else {
