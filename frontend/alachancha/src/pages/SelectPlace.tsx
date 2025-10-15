@@ -32,7 +32,7 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
   const onChangeNamePlace = (e: any) => {
     setNamePlace(e.target.value) // Actualiza el state cada vez que cambia el input
   }
-
+  debugger;
   React.useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
