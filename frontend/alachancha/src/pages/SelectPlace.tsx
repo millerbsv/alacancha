@@ -32,7 +32,6 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
   const onChangeNamePlace = (e: any) => {
     setNamePlace(e.target.value) // Actualiza el state cada vez que cambia el input
   }
-  debugger;
   React.useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -74,7 +73,7 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
         <div className="w-full h-full p-4 flex overflow-hidden justify-center">
           <div className="pt-3 rounded-xl bg-[var(--primary-backgroun-color)] shadow-2xl backdrop-blur-lg border border-gray-700 flex flex-col overflow-hidden">
             <h2 className="px-6 text-2xl font-bold text-white tracking-tight">Selecionar Lugar</h2>
-            <p className="px-6 py-4 text-base text-gray-400 border-b-2 border-gray-600">Mueva el mapa y selecionar un punto el mapa para la ubicación del cupo.</p>
+            <p className="px-6 py-4 text-base text-gray-400 border-b-2 border-gray-600">Mueva el mapa y selecionar un punto en el mapa para la ubicación del cupo.</p>
             <div className='p-6 flex flex-1 overflow-auto flex-col gap-6'>
               <div className="relative">
                 <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"> place </span>
@@ -82,8 +81,8 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
               </div>
               <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
                 <Map
-                  defaultZoom={15}
-                  defaultCenter={location}
+                  zoom={15}
+                  center={location}
                   gestureHandling={'greedy'}
                   disableDefaultUI={true}
                   onClick={handleMapClick}

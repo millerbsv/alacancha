@@ -14,7 +14,6 @@ export default function Search() {
       lng: -76.528,
   });
   React.useEffect(() => {
-    debugger;
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
