@@ -30,7 +30,6 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
     setNamePlace(e.target.value) // Actualiza el state cada vez que cambia el input
   }
   React.useEffect(() => {
-    debugger
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -61,10 +60,7 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
       console.log("Marcador agregado en:", coords);
     }
   };
-
   return (
-
-
     <div className="relative flex h-screen w-full flex-col overflow-hidden">
       <div className="flex flex-1 items-center p-4 overflow-hidden">
         <div className="w-full h-full p-4 flex overflow-hidden justify-center">
@@ -76,11 +72,27 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
                 <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"> place </span>
                 <input className="form-input w-full rounded-lg border border-gray-600 bg-gray-800 py-3 pl-12 pr-4 text-base text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50" placeholder="Lugar" type="text" onChange={onChangeNamePlace} value={namePlace} />
               </div>
-              {location &&
+              {location ?
               <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
                 <Map
                   defaultZoom={15}
                   defaultCenter={location}
+                  gestureHandling={'greedy'}
+                  disableDefaultUI={true}
+                  onClick={handleMapClick}
+                >
+                  {marker && (
+                    <Marker position={marker} />
+                  )}
+                </Map>
+              </APIProvider>
+              : <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+                <Map
+                  defaultZoom={15}
+                  defaultCenter={{
+                    lat: 3.442,
+                    lng: -76.528,
+                  }}
                   gestureHandling={'greedy'}
                   disableDefaultUI={true}
                   onClick={handleMapClick}
