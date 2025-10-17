@@ -21,10 +21,7 @@ interface SelectPlaceProps {
 }
 
 export default function SelectPlace({ handleClickClose, handleUpdatePlace }: SelectPlaceProps) {
-  const [location, setLocation] = useState({
-            lat: 3.442,
-            lng: -76.528,
-          });
+  const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [marker, setMarker] = useState<{ lat: number; lng: number } | null>(null);
   const [namePlace, setNamePlace] = useState('');
 
@@ -33,6 +30,7 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
     setNamePlace(e.target.value) // Actualiza el state cada vez que cambia el input
   }
   React.useEffect(() => {
+    debugger
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -64,7 +62,6 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
     }
   };
 
-
   return (
 
 
@@ -79,6 +76,7 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
                 <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"> place </span>
                 <input className="form-input w-full rounded-lg border border-gray-600 bg-gray-800 py-3 pl-12 pr-4 text-base text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-opacity-50" placeholder="Lugar" type="text" onChange={onChangeNamePlace} value={namePlace} />
               </div>
+              {location &&
               <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
                 <Map
                   defaultZoom={15}
@@ -92,7 +90,7 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
                   )}
                 </Map>
               </APIProvider>
-
+              }
 
             </div>
             <div className="px-6 py-2 border-t-2 border-gray-600 gap-2 flex flex-col">
