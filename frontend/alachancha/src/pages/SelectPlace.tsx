@@ -44,7 +44,7 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
         (err) => {
           toast.error(err.message);
         },
-        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 } // Optional options
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 } // Optional options
       );
     } else {
       toast.error("Geolocation is not supported by your browser.");
@@ -81,8 +81,8 @@ export default function SelectPlace({ handleClickClose, handleUpdatePlace }: Sel
               </div>
               <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
                 <Map
-                  zoom={15}
-                  center={location}
+                  defaultZoom={15}
+                  defaultCenter={location}
                   gestureHandling={'greedy'}
                   disableDefaultUI={true}
                   onClick={handleMapClick}

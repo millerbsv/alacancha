@@ -25,7 +25,7 @@ export default function Search() {
           (err) => {
             toast.error(err.message);
           },
-          { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 } // Optional options
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 } // Optional options
         );
       } else {
         toast.error("Geolocation is not supported by your browser.");
